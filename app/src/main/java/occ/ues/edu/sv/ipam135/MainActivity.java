@@ -11,11 +11,13 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-
     private EditText _display;
     private String textDisplay="";
-    char a = '\u221A';
+    private EditText resultado;
+    private double resul=0;
+    char root = '\u221A';
     private List<String> contenido = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +25,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         _display = (EditText)findViewById(R.id.display);
+        resultado= (EditText)findViewById(R.id.txtRESULT);
+
     }
 
     public void clickKey(View v){
@@ -95,14 +99,15 @@ public class MainActivity extends AppCompatActivity {
                 contenido.add("^");
                 break;
             case R.id.btnIGUAL:
+               igual();
                 break;
             case R.id.btnCLEAR:
                 textDisplay="";
                 contenido = new ArrayList<>();
                 break;
             case R.id.btnRAIZ:
-                textDisplay=textDisplay+ a;
-                contenido.add(a+"");
+                textDisplay=textDisplay+root;
+                contenido.add(root+"");
                 break;
             case R.id.btnDEL:
                 if(textDisplay.length()>0){
@@ -114,6 +119,72 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
         _display.setText(textDisplay);
+    }
+
+    public List sortArray(){
+        List<String> array= new ArrayList<>();
+        String valores="";
+        array.add("0");
+
+        for (int i=0;i<contenido.size();i++){
+
+            if(contenido.get(i).matches("[-+^*/√]")){
+                if(!valores.isEmpty() || !valores.equals("")){
+                    array.add(valores);
+                }
+                array.add(contenido.get(i));
+                valores="";
+            }else if(contenido.get(i).matches("[0-9]") ){
+                valores=valores+contenido.get(i);
+            }else if(contenido.get(i).matches("[.]")){
+                valores=valores+contenido.get(i);
+            }
+        }
+        if(!valores.isEmpty() || !valores.equals("")){
+            array.add(valores);
+        }
+        return array;
+    }
+
+    public void igual(){
+        List<String> listaOperaciones=sortArray();
+
+        if (listaOperaciones.get(1).matches("[+/*^.]")) {
+            textDisplay = "sintax Error";
+        }else if(listaOperaciones.get(1).matches("[-√]")){
+        }
+        else{
+            resul=Double.valueOf(listaOperaciones.get(1));
+        }
+        for (int i = 1; i < listaOperaciones.size(); i++) {
+            if(listaOperaciones.get(i-1).matches("[-√+/*^]")){
+                switch (listaOperaciones.get(i-1)){
+                    case "+":
+                        resul=resul+Double.parseDouble(listaOperaciones.get(i));
+                        break;
+                    case "-":
+                        resul=resul-Double.parseDouble(listaOperaciones.get(i));
+                        break;
+                    case "*":
+                        resul=resul*Double.parseDouble(listaOperaciones.get(i));
+                        break;
+                    case "/":
+                        resul=resul/Double.parseDouble(listaOperaciones.get(i));
+                        break;
+                    case "^":
+                        resul=Math.pow(resul,Double.parseDouble(listaOperaciones.get(i)));
+                        break;
+                        //TODO:(ver video y resolver dudas)
+                    case "√":
+                        resul=Math.sqrt(Double.parseDouble(listaOperaciones.get(i)));
+                        break;
+                }
+            }
+        }
+        resultado.setText(resul+"");
+        contenido= new ArrayList<>();
+        contenido.add(resul+"");
+        resul=0;
     }
 
 
