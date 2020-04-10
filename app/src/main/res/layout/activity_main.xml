@@ -12,13 +12,30 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
+    <LinearLayout
+        android:id="@+id/buttons_container00"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:showDividers="middle">
+
     <EditText
         android:id="@+id/txtRESULT"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:inputType="numberDecimal"
 
         />
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/asterisco"
+        android:onClick="enableBtn"
+        android:layout_weight="1"
+        />
+
+        </LinearLayout>
 
     <LinearLayout
         android:id="@+id/buttons_container0"
@@ -53,6 +70,7 @@
         <ImageButton
             android:id="@+id/btnX"
             android:src="@drawable/close"
+            android:onClick="clickKey"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             />
