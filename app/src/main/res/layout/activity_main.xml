@@ -5,43 +5,66 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
+    android:background="@color/colorAquaman"
     android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/display"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
     <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/colorPrimaryDark"
+        android:showDividers="middle" >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:textAlignment="center"
+            android:text="@string/calk"
+            android:background="@color/colorAquaman"
+            android:gravity="center_horizontal" />
+          <TextView
+            android:id="@+id/display"
+            android:layout_width="match_parent"
+            android:background="@color/colorAquaman"
+            android:layout_height="wrap_content"
+            android:textSize="20dp" />
+
+        <TextView
+            android:id="@+id/txtRESULT"
+            android:background="@color/colorAquaman"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:textSize="30dp"
+            android:layout_weight="1"
+            android:inputType="numberDecimal"
+            />
+
+        <LinearLayout
         android:id="@+id/buttons_container00"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:showDividers="middle">
 
-    <EditText
-        android:id="@+id/txtRESULT"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:inputType="numberDecimal"
 
-        />
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/asterisco"
-        android:onClick="enableBtn"
-        android:layout_weight="1"
-        />
+        <Button
+            android:id="@+id/btnOnOff"
+            android:layout_width="138dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@color/colorWhite"
+            android:background="@color/colorRed"
+            android:onClick="enableBtn"
+            android:text="@string/onoff" />
 
-        </LinearLayout>
+    </LinearLayout>
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/buttons_container0"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
         android:orientation="horizontal"
         android:showDividers="middle">
         <ImageButton
@@ -50,18 +73,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:saveEnabled="false"
-            android:src="@drawable/division"
+            android:src="@drawable/div"
             />
         <ImageButton
             android:id="@+id/btnMAS"
             android:onClick="clickKey"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:src="@drawable/plus"
+            android:src="@drawable/mas"
             />
         <ImageButton
             android:id="@+id/btnMENOS"
-            android:src="@drawable/minus"
+            android:src="@drawable/menos"
             android:onClick="clickKey"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -69,7 +92,7 @@
 
         <ImageButton
             android:id="@+id/btnX"
-            android:src="@drawable/close"
+            android:src="@drawable/equis"
             android:onClick="clickKey"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -83,33 +106,32 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:background="@color/colorPrimary"
         android:showDividers="middle">
 
         <ImageButton
             android:id="@+id/btnUNO"
-            android:src="@drawable/one"
+            android:src="@drawable/uno"
             android:onClick="clickKey"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             />
         <ImageButton
             android:id="@+id/btnDOS"
-            android:src="@drawable/two"
+            android:src="@drawable/dos"
             android:onClick="clickKey"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             />
         <ImageButton
             android:id="@+id/btnTRES"
-            android:src="@drawable/three"
+            android:src="@drawable/tres"
             android:onClick="clickKey"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             />
         <ImageButton
             android:id="@+id/btnRAIZ"
-            android:src="@drawable/close"
+            android:src="@drawable/raiz"
             android:onClick="clickKey"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -121,34 +143,33 @@
         android:id="@+id/buttons_container2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
         android:orientation="horizontal"
         android:showDividers="middle">
 
         <ImageButton
             android:id="@+id/btnCUATRO"
-            android:src="@drawable/four"
+            android:src="@drawable/cuatro"
             android:onClick="clickKey"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             />
         <ImageButton
             android:id="@+id/btnCINCO"
-            android:src="@drawable/five"
+            android:src="@drawable/cinco"
             android:onClick="clickKey"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             />
         <ImageButton
             android:id="@+id/btnSEIS"
-            android:src="@drawable/six"
+            android:src="@drawable/seis"
             android:layout_width="wrap_content"
             android:onClick="clickKey"
             android:layout_height="match_parent"
             />
         <ImageButton
             android:id="@+id/btnPOTENCIA"
-            android:src="@drawable/potencia"
+            android:src="@drawable/exponente"
             android:layout_width="wrap_content"
             android:onClick="clickKey"
             android:layout_height="match_parent"
@@ -161,30 +182,29 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:background="@color/colorPrimary"
         android:showDividers="middle">
 
         <ImageButton
             android:id="@+id/btnSIETE"
-            android:src="@drawable/seven"
+            android:src="@drawable/siete"
             android:onClick="clickKey"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"/>
         <ImageButton
             android:id="@+id/btnOCHO"
             android:onClick="clickKey"
-            android:src="@drawable/eight"
+            android:src="@drawable/ocho"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"/>
         <ImageButton
             android:id="@+id/btnNUEVE"
-            android:src="@drawable/nine"
+            android:src="@drawable/nueve"
             android:onClick="clickKey"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"/>
         <ImageButton
             android:id="@+id/btnDEL"
-            android:src="@drawable/delete"
+            android:src="@drawable/arrow"
             android:layout_width="wrap_content"
             android:onClick="clickKey"
             android:layout_height="match_parent"/>
@@ -195,32 +215,31 @@
         android:id="@+id/buttons_container4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
         android:orientation="horizontal"
         android:showDividers="middle">
 
         <ImageButton
             android:id="@+id/btnDOT"
-            android:src="@drawable/dot"
+            android:src="@drawable/comma"
             android:layout_width="wrap_content"
             android:onClick="clickKey"
             android:layout_height="match_parent"></ImageButton>
         <ImageButton
             android:id="@+id/btnCERO"
             android:layout_width="wrap_content"
-            android:src="@drawable/zero"
+            android:src="@drawable/cero"
             android:onClick="clickKey"
             android:layout_height="match_parent"/>
         <ImageButton
             android:id="@+id/btnIGUAL"
-            android:src="@drawable/equal"
+            android:src="@drawable/igual"
             android:layout_width="wrap_content"
             android:onClick="clickKey"
             android:layout_height="match_parent"/>
 
         <ImageButton
             android:id="@+id/btnCLEAR"
-            android:src="@drawable/clear"
+            android:src="@drawable/basurero"
             android:layout_width="wrap_content"
             android:onClick="clickKey"
 

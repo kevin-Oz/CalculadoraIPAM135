@@ -2,20 +2,26 @@ package occ.ues.edu.sv.ipam135;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Kevin Figueroa GF15006
+ */
 public class MainActivity extends AppCompatActivity {
 
-    private EditText _display;
+    private TextView _display;
     private String textDisplay="";
-    int contador=0;
-    private EditText resultado;
+    private TextView resultado;
+    private Button on;
     private double resul=0;
     Boolean onOff=true;
     private ImageButton [] botones= new ImageButton[20];
@@ -29,11 +35,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        _display = (EditText)findViewById(R.id.display);
-        resultado= (EditText)findViewById(R.id.txtRESULT);
+        _display = (TextView) findViewById(R.id.display);
+        resultado= (TextView) findViewById(R.id.txtRESULT);
 
-
-        //necesario para habilitar/inhabilita botones. :c
+        on = (Button) findViewById(R.id.btnOnOff);
+        /**
+         * necesario para habilitar/inhabilita botones. :c
+         */
 
         botones[0]=(ImageButton)findViewById(R.id.btnCERO);
         botones[1]=(ImageButton)findViewById(R.id.btnUNO);
@@ -60,9 +68,16 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * manejador de eventos clicks
+     *
+     * @param v
+     */
     public void clickKey(View v){
-        if(textDisplay=="sintax Error"){
+        if(textDisplay=="sintax Error" || textDisplay=="i" ){
             textDisplay="";
+            resul=0;
+            contenido= new ArrayList<>();
         }
         switch (v.getId()){
             case R.id.btnCERO:
@@ -111,6 +126,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 if(verificarFormato()==true){
                     igual();
+                    textDisplay=resultado.getText().toString();
                 }
                 textDisplay=textDisplay+"+";
                 contenido.add("+");
@@ -122,6 +138,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 if(verificarFormato()==true){
                     igual();
+                    textDisplay=resultado.getText().toString();
                 }
                 textDisplay=textDisplay+"-";
                 contenido.add("-");
@@ -132,6 +149,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 if(verificarFormato()==true){
                     igual();
+                    textDisplay=resultado.getText().toString();
                 }
                 textDisplay=textDisplay+"/";
                 contenido.add("/");
@@ -142,6 +160,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 if(verificarFormato()==true){
                     igual();
+                    textDisplay=resultado.getText().toString();
                 }
                 textDisplay=textDisplay+"x";
                 contenido.add("*");
@@ -156,6 +175,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 if(verificarFormato()==true){
                     igual();
+                    textDisplay=resultado.getText().toString();
                 }
                 textDisplay=textDisplay+"^";
                 contenido.add("^");
@@ -165,6 +185,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.btnCLEAR:
                 textDisplay="";
+                resultado.setText("");
                 contenido = new ArrayList<>();
                 break;
             case R.id.btnRAIZ:
@@ -211,16 +232,10 @@ public class MainActivity extends AppCompatActivity {
         return array;
     }
 
-    public void validarSize(){
-        for (int i = 0; i < textDisplay.length(); i++) {
-
-            if(textDisplay.charAt(i)=='-' || textDisplay.charAt(i)=='+'){
-                contador=contador+1;
-            }
-        }
-
-    }
-
+    /**
+    hace el corte para cuando hay mas de una operacion
+    en el display
+     */
     public boolean verificarFormato(){
         listaOperaciones=sortArray();
         int val =0;
@@ -244,7 +259,13 @@ public class MainActivity extends AppCompatActivity {
         List<String> listaOperaciones=sortArray();
         if(listaOperaciones.get(2).matches("[√]")){
             resul=Math.sqrt(Double.parseDouble(listaOperaciones.get(1)));
-        }else if (listaOperaciones.size()>3){
+        }else if(listaOperaciones.get(1).equals("-")){
+            textDisplay="i";
+            resultado.setText("");
+
+        }
+        else if (listaOperaciones.size()>3){
+            resultado.setText("");
             textDisplay="sintax Error";
         }
 
@@ -264,6 +285,7 @@ public class MainActivity extends AppCompatActivity {
       listaOperaciones=sortArray();
         if (listaOperaciones.get(1).matches("[+/*^.]")) {
             textDisplay = "sintax Error";
+            resultado.setText("");
         }else if(listaOperaciones.get(1).matches("[-√]")){
         }
         else{
@@ -279,6 +301,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                         else if(listaOperaciones.get(i).matches("[√+/*^]")){
                             textDisplay="sintax Error";
+                            resultado.setText("");
                         }else {
                             resul = resul + Double.parseDouble(listaOperaciones.get(i));
                         }
@@ -288,8 +311,9 @@ public class MainActivity extends AppCompatActivity {
                             resul=resul+Double.parseDouble(listaOperaciones.get(i+1));
                             i=i+1;
                         }
-                        else if(listaOperaciones.get(i).matches("[√+/*^]")){
+                        else if(listaOperaciones.get(i).matches("[+√/*^]")){
                             textDisplay="sintax Error";
+                            resultado.setText("");
                         }else {
                             resul = resul - Double.parseDouble(listaOperaciones.get(i));
                         }
@@ -301,6 +325,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                         else if(listaOperaciones.get(i).matches("[√+/*^]")){
                             textDisplay="sintax Error";
+                            resultado.setText("");
                         }
                         else{
                             resul=resul*Double.parseDouble(listaOperaciones.get(i));
@@ -311,15 +336,20 @@ public class MainActivity extends AppCompatActivity {
                         if(listaOperaciones.get(i).equals("-")){
                             if(listaOperaciones.get(i+1).equals("0") || listaOperaciones.get(i+1).equals("0.0") ){
                             textDisplay="sintax Error";
-                        }
+                                resultado.setText("");
+
+                            }
                             resul=resul/-Double.parseDouble(listaOperaciones.get(i+1));
                             i=i+1;
                         }else if(listaOperaciones.get(i).matches("[√+/*^]")){
                             textDisplay="sintax Error";
+                            resultado.setText("");
+
                         }
                         else {
                             if(listaOperaciones.get(i).equals("0") || listaOperaciones.get(i).equals("0.0")){
                                 textDisplay="sintax Error";
+                                resultado.setText("");
                             }
                             resul = resul/Double.parseDouble(listaOperaciones.get(i));
                         }
@@ -330,11 +360,12 @@ public class MainActivity extends AppCompatActivity {
                             i=i+1;
                         }else if(listaOperaciones.get(i).matches("[√+/*^]")){
                             textDisplay="sintax Error";
+                            resultado.setText("");
                         }else{
                             resul=Math.pow(resul,Double.parseDouble(listaOperaciones.get(i)));
                         }
                         break;
-                        //TODO: el btn debe de ser presionado antes o despues del valor númerico?
+                        //
              /*       case "√":
                         if (listaOperaciones.get(i).equals("-")){
                             resultado.setText("sintax Error");
@@ -364,17 +395,25 @@ public class MainActivity extends AppCompatActivity {
             for (int i = 0; i < botones.length; i++) {
                 botones[i].setEnabled(true);
             }
+            _display.setBackgroundColor(Color.parseColor("#ffffff"));
+            on.setBackgroundColor(Color.parseColor("#000000"));
+            resultado.setBackgroundColor(Color.parseColor("#ffffff"));
             onOff=false;
         }else {
             for (int i = 0; i < botones.length; i++) {
                 botones[i].setEnabled(false);
             }
+            on.setBackgroundColor(Color.parseColor("#ff0008"));
+            _display.setBackgroundColor(Color.parseColor("#16A085"));
+            resultado.setBackgroundColor(Color.parseColor("#16A085"));
+
             onOff=true;
         }
         textDisplay="";
+        contenido= new ArrayList<>();
+        resul=0;
         resultado.setText("");
         _display.setText("");
     }
-
 
 }
