@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="btnMENOS" type="id"/>
+    <item name="linearLayout5" type="id"/>
+    <item name="btnDIV" type="id" />
+    <item name="btnX" type="id" />
+    <item name="btnUNO" type="id" />
+    <item name="btnRAIZ" type="id" />
+    <item name="btnTRES" type="id" />
+    <item name="btnCUATRO" type="id" />
+    <item name="btnIGUAL" type="id" />
+    <item name="btnPOTENCIA" type="id" />
+    <item name="btnSIETE" type="id" />
+    <item name="btnDEL" type="id" />
+</resources>
